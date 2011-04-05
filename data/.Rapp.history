@@ -1,0 +1,6 @@
+load("/Users/Na_Paz/Documents/Ecologia UFRGS/Testes R/Syncsa_R/Package/SYNCSA/data/flona.rda")
+ls()
+flona
+load("/Users/Na_Paz/Documents/Ecologia UFRGS/Testes R/Syncsa_R/Package/SYNCSA/help/aliases.rds")
+load("/Users/Na_Paz/Documents/Ecologia UFRGS/Testes R/Syncsa_R/Package/SYNCSA/help/paths.rds")
+require(SYNCSA)
