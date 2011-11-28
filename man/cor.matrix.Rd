@@ -3,7 +3,7 @@
 \alias{cor.matrix}
 
 \title{
-Function for obtains the correlation between two matrices.
+Function to obtain the correlation between two matrices.
 }
 
 \description{

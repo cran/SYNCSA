@@ -3,11 +3,11 @@
 \alias{cor.matrix.partial}
 
 \title{
-Function for obtains the partial matrix correlation between three matrices.
+Function to obtain the partial matrix correlation between three matrices.
 }
 
 \description{
-Function obtains the partial matrix correlation between three matrices, similar to the function mantel.partial. The significance of the statistics is evaluated differently from mantel.partial. For more details, see \code{\link{syncsa}}.
+Function to obtain the partial matrix correlation between three matrices, similar to the function mantel.partial. The significance of the statistics is evaluated differently from mantel.partial. For more details, see \code{\link{syncsa}}.
 }
 
 \usage{

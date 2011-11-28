@@ -86,11 +86,15 @@ Vanderlei Júlio Debastiani <vanderleidebastiani@yahoo.com.br>
 
 \note{
 The function calculates the correlations despite the lack of one of the matrices, provided that community data had been entered. Correlations including unspecified matrices will appear with ro = 0.
+
 }
 
 \section{Warning}{Input data must  be of class matrix (Tip: use function as.matrix to transform the data frame).
 
 \strong{IMPORTANT}: The sequence of species in the community data matrix MUST be the same as that in the phylogenetic distance matrix and in traits matrix. Similarly, the sequence of communities in the community data matrix MUST be the same as that in the environmental data matrix. See \code{\link{organize.syncsa}}.
+
+The function does not work with missing data (NA).  You can find solutions in the package \code{\link{mice}}.
+
 }
 
 \seealso{ \code{\link{matrix.t}}, \code{\link{matrix.x}}, \code{\link{matrix.p}}, \code{\link{optimal}}, \code{\link{organize.syncsa}} 
@@ -99,7 +103,7 @@ The function calculates the correlations despite the lack of one of the matrices
 \examples{
 data(flona)
 syncsa(comm=flona$community,traits=flona$traits,dist.spp=flona$phylo,envir=flona$environment,method="pearson",dist="euclidean",scale=TRUE,scale.envir=TRUE,permutations=999)
-syncsa(flona$community,traits=flona$traits)
+syncsa(flona$community,traits=flona$traits,envir=flona$environment)
 }
 
 \keyword{SYNCSA}
