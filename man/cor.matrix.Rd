@@ -16,7 +16,7 @@ cor.matrix(m1, m2, x, y, method = "pearson", dist = "euclidean", permutations = 
 
 \arguments{
 \item{m1}{Matrix that multiplied by m2 results in the matrix x.}
-\item{m2}{Matrix that when multiplied by m1 results in the matrix x.}
+\item{m2}{Matrix that when multiplied by m1 results in the matrix x. See `details` below.}
 \item{x}{Matrix obtained by multiplication of m1 and m2.}
 \item{y}{Matrix that will be correlated with the matrix x.}
 \item{method}{Correlation method, as accepted by cor: "pearson", "spearman" or "kendall".}
@@ -26,9 +26,9 @@ cor.matrix(m1, m2, x, y, method = "pearson", dist = "euclidean", permutations = 
 }
 
 \details{
-The null model is based on permutations in the matrix m2. 
+The null model is based on permutations in the matrix m2, typically the matrices B, U and Q.
 
-Null model described by Pillar et al. (2009) and Pillar & Duarte (2010). For more details, see \code{\link{syncsa}}.
+Null model described by Pillar et al. (2009) and Pillar & Duarte (2010). For more details on the matrices and the null model, see \code{\link{syncsa}}.
 }
 
 \value{

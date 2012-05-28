@@ -3,7 +3,7 @@
 \alias{cent.norm}
 
 \title{
-matrix Mentralization and standardization
+Matrix centralization and standardization
 }
 \description{
 Internal function for centralization and standardization in a matrix.

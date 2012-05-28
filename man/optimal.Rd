@@ -50,9 +50,9 @@ Vanderlei Júlio Debastiani <vanderleidebastiani@yahoo.com.br>
 
 \examples{
 data(flona)
-optimal(flona$community,flona$environment,flona$traits,subset=5,pattern="tcap",scale=TRUE,scale.envir=TRUE)
-optimal(flona$community,flona$environment,flona$traits,subset=5,pattern="tdap",scale=TRUE,scale.envir=TRUE)
-optimal(flona$community,flona$environment,flona$traits,subset=5,pattern="tcap.tdap",scale=TRUE,scale.envir=TRUE)
+optimal(flona$community,flona$environment,flona$traits,subset=5,pattern="tcap")
+optimal(flona$community,flona$environment,flona$traits,subset=5,pattern="tdap")
+optimal(flona$community,flona$environment,flona$traits,subset=5,pattern="tcap.tdap")
 }
 
 \keyword{SYNCSA}
