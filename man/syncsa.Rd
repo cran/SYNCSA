@@ -12,7 +12,7 @@ The function implement methods that have been available in the SYNCSA applicatio
 }
 
 \usage{
-syncsa(comm, traits, dist.spp, envir, method = "pearson", dist = "euclidean", scale = TRUE, scale.envir = TRUE, permutations = 999)
+syncsa(comm, traits, dist.spp, envir, method = "pearson", dist = "euclidean", scale = TRUE, scale.envir = TRUE, permutations = 999, na.rm = FALSE, notification = TRUE)
 }
 
 \arguments{
@@ -25,6 +25,8 @@ syncsa(comm, traits, dist.spp, envir, method = "pearson", dist = "euclidean", sc
 \item{scale}{Logical argument (TRUE or FALSE) to specify if the traits are measured on different scales (Default Scale = TRUE). Scale = TRUE if traits are measured on different scales, the matrix T is subjected to standardization within each trait. Scale = FALSE if traits are measured on the same scale, the matrix T is not subjected to standardization. Furthermore, if Scale = TRUE the matrix of traits is subjected to standardization within each trait, and  Gower Index is used to calculate the degree of belonging to the species, and if Scale = FALSE the matrix of traits is not subjected to standardization, and Euclidean distance is calculated to determine the degree of belonging to the species.}
 \item{scale.envir}{Logical argument (TRUE or FALSE) to specify if the environmental variables are measured on different scales (Default Scale = TRUE). If the enviromental variables are measured on different scales, the matrix is subjected to centralization and standardization within each variable.}
 \item{permutations}{Number of permutations in assessing significance.}
+\item{na.rm}{Logical argument (TRUE or FALSE) to specify if pairwise distances should be deleted in cases of missing observations (Default na.rm = FALSE).}
+\item{notification}{Logical argument (TRUE or FALSE) to specify if notification of missing observations should to be shown (Default notification = TRUE).}
 }
 
 \details{
@@ -62,15 +64,22 @@ All the matrix correlations are tested against null models. The null model is de
 Correlations roTE, roXE, roPE, roPT, roPX.T, roXE.T, roTE.P, roXE.P and roBF, and their significance levels based on permutations. 
 }
 
+\note{
+The function calculates the correlations despite the lack of one of the matrices, provided that community data had been entered. Correlations including unspecified matrices will appear with ro = 0.
+
+\strong{IMPORTANT}: The sequence of species in the community data matrix MUST be the same as that in the phylogenetic distance matrix and in traits matrix. Similarly, the sequence of communities in the community data matrix MUST be the same as that in the environmental data matrix. See \code{\link{organize.syncsa}}.
+
+The functions ignore missing data when specified. In the case of direct multiplication of matrices (matrices \strong{W} and matrix \strong{B}) the missing data are replaced by 0, ignoring the cell with missing value. Result matrices are shown without missing values. Where the matrices are calculated using a dissimilarity index (matrix \strong{U} and correlations between matrices) the missing data are ignored as in \code{\link{vegdist}} function. In some cases the dissimilarity matrices obtained by the function \code{\link{vegdist}} still contain some missing values. In these cases the rest of the procedure will be affected. In these cases you can find solutions in the package \code{\link{mice}}.
+
+}
+
 \references{
 
 Pillar, V.D.; Duarte, L.d.S. (2010). A framework for metacommunity analysis of phylogenetic structure. Ecology Letters, 13, 587-596.
 
 Pillar, V.D., Duarte, L.d.S., Sosinski, E.E. & Joner, F. (2009). Discriminating trait-convergence and trait-divergence assembly patterns in ecological community gradients. Journal of Vegetation Science, 20, 334–348.
 
-Pillar, V.D. & Orlóci, L. (1991). Fuzzy components in community
-level comparisons. In: Computer Assisted Vegetation Analysis (eds
-Feoli, E. & Orlóci, L.). Kluwer, Dordrecht, pp. 87–93.
+Pillar, V.D. & Orlóci, L. (1991). Fuzzy components in community level comparisons. In: Computer Assisted Vegetation Analysis (eds Feoli, E. & Orlóci, L.). Kluwer, Dordrecht, pp. 87–93.
 
 Stubbs, W.J. & Wilson, J.B. (2004). Evidence for limiting similarity in a sand dune community. Journal of Ecology, 92, 557–567.
 
@@ -82,19 +91,6 @@ Wilson, J.B. (2007). Trait-divergence assembly rules have been demonstrated: lim
 
 \author{
 Vanderlei Júlio Debastiani <vanderleidebastiani@yahoo.com.br>
-}
-
-\note{
-The function calculates the correlations despite the lack of one of the matrices, provided that community data had been entered. Correlations including unspecified matrices will appear with ro = 0.
-
-}
-
-\section{Warning}{Input data must  be of class matrix (Tip: use function as.matrix to transform the data frame).
-
-\strong{IMPORTANT}: The sequence of species in the community data matrix MUST be the same as that in the phylogenetic distance matrix and in traits matrix. Similarly, the sequence of communities in the community data matrix MUST be the same as that in the environmental data matrix. See \code{\link{organize.syncsa}}.
-
-The function does not work with missing data (NA).  You can find solutions in the package \code{\link{mice}}.
-
 }
 
 \seealso{ \code{\link{matrix.t}}, \code{\link{matrix.x}}, \code{\link{matrix.p}}, \code{\link{optimal}}, \code{\link{organize.syncsa}} 

@@ -11,7 +11,7 @@ Function to obtain the partial matrix correlation between three matrices, simila
 }
 
 \usage{
-cor.matrix.partial(m1, m2, x, y, z, method = "pearson", dist = "euclidean", permutations = 999, norm = FALSE)
+cor.matrix.partial(m1, m2, x, y, z, method = "pearson", dist = "euclidean", permutations = 999, norm = FALSE, na.rm = FALSE)
 }
 
 \arguments{
@@ -24,6 +24,7 @@ cor.matrix.partial(m1, m2, x, y, z, method = "pearson", dist = "euclidean", perm
 \item{dist}{Dissimilarity index, as accepted by vegdist: "manhattan", "euclidean", "canberra", "bray", "kulczynski", "jaccard", "gower", "altGower", "morisita", "horn", "mountford", "raup" , "binomial" or "chao". However, some of these will not make sense in this case.}
 \item{permutations}{Number of permutations in assessing significance.}
 \item{norm}{Logical argument (TRUE or FALSE) to specify if x is standardized within variables (Default norm = FALSE).}
+\item{na.rm}{Logical argument (TRUE or FALSE) to specify if pairwise deletion of missing observations when computing dissimilarities (Default na.rm = FALSE).}
 }
 
 \details{

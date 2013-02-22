@@ -21,16 +21,16 @@ organize.syncsa(comm, traits, dist.spp, envir)
 \item{envir}{Environmental variables for each community, with variables as columns and sampling units as rows.}
 }
 
+\note{
+The function organizes the matrices despite the absence of one of the matrices, provided that the community data had been entered. Unspecified matrices will appear as NULL.
+}
+
 \value{
 The matrices of community, traits, phylogenetic distance and environmental variables. The objects returned belong to the matrix class.
 }
 
 \author{
 Vanderlei Júlio Debastiani <vanderleidebastiani@yahoo.com.br>
-}
-
-\note{
-The function organizes the matrices despite the absence of one of the matrices, provided that the community data had been entered. Unspecified matrices will appear as NULL.
 }
 
 \seealso{ \code{\link{matrix.t}}, \code{\link{matrix.x}}, \code{\link{matrix.p}}, \code{\link{syncsa}}

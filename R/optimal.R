@@ -1,14 +1,32 @@
-optimal<-function (comm, envir, traits, subset = 3, pattern = "tcap", dist = "euclidean", method = "pearson", scale = TRUE, scale.envir = TRUE) {
+optimal<-function (comm, envir, traits, subset.min = 2, subset.max = 3, pattern = "tcap", dist = "euclidean", method = "pearson", scale = TRUE, scale.envir = TRUE , na.rm = FALSE, notification = TRUE) 
+{
     part.cor <- function(rxy, rxz, ryz) {
         (rxy - rxz * ryz)/sqrt(1 - rxz * rxz)/sqrt(1 - ryz * ryz)
     }
+    comm<-as.matrix(comm)
+    envir<-as.matrix(envir)
+    traits<-as.matrix(traits)
+    if(notification==TRUE){
+    	c.NA <- apply(comm, 2, is.na)
+    	if(length(which(unique(as.vector(c.NA))==TRUE))>0){
+			warning("Warning: NA in community data",call.=FALSE)	
+    	}
+		t.NA <- apply(traits, 2, is.na)
+    	if(length(which(unique(as.vector(t.NA))==TRUE))>0){
+			warning("Warning: NA in traits matrix",call.=FALSE)	
+		}
+		e.NA <- apply(envir, 2, is.na)
+		if(length(which(unique(as.vector(e.NA))==TRUE))>0){
+			warning("Warning: NA in environmental data",call.=FALSE)	
+    	}
+    }
     colnames(traits) <- colnames(traits, do.NULL = FALSE, prefix = "T")
     if (scale.envir == "TRUE") {
-        envir <- cent.norm(envir)
+        envir <- cent.norm(envir,na.rm = na.rm)
     }
-    dist.y <- vegdist(envir, method = dist)
+    dist.y <- vegdist(envir, method = dist, na.rm = na.rm)
     m <- dim(traits)[2]
-    if (subset > m) {
+    if (subset.max > m) {
         stop("\n Subset must be lower than the number of traits\n")
     }
     PATTERNS <- c("tcap", "tdap", "tcap.tdap")
@@ -19,40 +37,51 @@ optimal<-function (comm, envir, traits, subset = 3, pattern = "tcap", dist = "eu
     if (is.na(pattern)) {
         stop("\n Invalid pattern \n")
     }
-    p <- 1:subset
+    p <- 1:subset.max
     bin <- factorial(m)/(factorial(p) * factorial(m - p))
-    comb <- matrix(NA, nrow = sum(bin), ncol = 1)
-    for (i in 1:subset) {
+    comb <- matrix(NA, nrow = sum(bin[subset.min:subset.max]), ncol = 1)
+    n=0
+    for (i in subset.min:subset.max) {
         combinations <- combn(colnames(traits), i, simplify = TRUE)
         for (j in 1:bin[i]) {
-            comb[(j + sum(bin[1:i - 1])), 1] <- paste(combinations[,j], collapse = " ")
+        	n=n+1
+            comb[n, 1] <- paste(combinations[,j], collapse = " ")
         }
     }
-    correlation <- matrix(NA, nrow = sum(bin), ncol = 1)
-    for (i in 1:subset) {
+    n=0
+    correlation <- matrix(NA, nrow = sum(bin[subset.min:subset.max]), ncol = 1)
+    for (i in subset.min:subset.max) {
         combinations1 <- combn(colnames(traits), i, simplify = TRUE)
         for (j in 1:bin[i]) {
             if (pattern == 1) {
-                T <- matrix.t(comm, as.matrix(traits[, combinations1[, 
-                  j]]), scale = scale)
-                correlation[(j + sum(bin[1:i - 1])), 1] <- cor(vegdist(as.matrix(T$matrix.T), method = dist), dist.y, method = method)
+            	n=n+1
+                T <- matrix.t(comm, as.matrix(traits[, combinations1[, j]]), scale = scale, notification = FALSE)
+                correlation[n, 1] <- cor(vegdist(as.matrix(T$matrix.T), method = dist, na.rm = na.rm), dist.y, method = method)
             }
             if (pattern == 2) {
-                T <- matrix.t(comm, as.matrix(traits[, combinations1[,j]]), scale = scale)
-                X <- matrix.x(comm, as.matrix(traits[, combinations1[,j]]), scale = scale)
-                dist.x <- vegdist(X$matrix.X, method = dist)
-                dist.z <- vegdist(T$matrix.T, method = dist)
+            	n=n+1
+                T <- matrix.t(comm, as.matrix(traits[, combinations1[, j]]), scale = scale, notification = FALSE)
+                X <- matrix.x(comm, as.matrix(traits[, combinations1[, j]]), scale = scale, notification = FALSE)
+                dist.x <- vegdist(X$matrix.X, method = dist, na.rm = na.rm)
+                dist.z <- vegdist(T$matrix.T, method = dist, na.rm = na.rm)
                 rxy <- cor(dist.x, dist.y, method = method)
                 rxz <- cor(dist.x, dist.z, method = method)
                 ryz <- cor(dist.y, dist.z, method = method)
-                correlation[(j + sum(bin[1:i - 1])), 1] <- part.cor(rxy,rxz, ryz)
-                	if((rxz==1|ryz==1)==TRUE){
-    					correlation[(j + sum(bin[1:i - 1])), 1]<-0	
-    				}  
+                correlation[n, 1] <- part.cor(rxy, rxz, ryz)
+                if(!is.na(rxz)){
+                	if(!is.na(ryz)){
+                		if(!is.na(rxy)){
+                			if ((rxz == 1 | ryz == 1) == TRUE) {
+	                  			correlation[n, 1] <- 0
+	                  		}
+        	        	}
+    	            }
+                }
             }
             if (pattern == 3) {
-                X <- matrix.x(comm, as.matrix(traits[, combinations1[,j]]), scale = scale)
-                correlation[(j + sum(bin[1:i - 1])), 1] <- cor(vegdist(as.matrix(X$matrix.X),method = dist), dist.y, method = method)
+            	n=n+1
+                X <- matrix.x(comm, as.matrix(traits[, combinations1[, j]]), scale = scale, notification = FALSE)
+                correlation[n, 1] <- cor(vegdist(as.matrix(X$matrix.X), method = dist, na.rm = na.rm), dist.y, method = method)
             }
         }
     }
