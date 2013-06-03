@@ -11,7 +11,8 @@ Function to obtain the partial matrix correlation between three matrices, simila
 }
 
 \usage{
-cor.matrix.partial(m1, m2, x, y, z, method = "pearson", dist = "euclidean", permutations = 999, norm = FALSE, na.rm = FALSE)
+cor.matrix.partial(m1, m2, x, y, z, method = "pearson", dist = "euclidean",
+		permutations = 999, norm = FALSE, na.rm = FALSE)
 }
 
 \arguments{

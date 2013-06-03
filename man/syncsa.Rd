@@ -12,7 +12,9 @@ The function implement methods that have been available in the SYNCSA applicatio
 }
 
 \usage{
-syncsa(comm, traits, dist.spp, envir, method = "pearson", dist = "euclidean", scale = TRUE, scale.envir = TRUE, permutations = 999, na.rm = FALSE, notification = TRUE)
+syncsa(comm, traits, dist.spp, envir, method = "pearson", dist = "euclidean",
+		scale = TRUE, scale.envir = TRUE, permutations = 999, na.rm = FALSE, 
+		notification = TRUE)
 }
 
 \arguments{

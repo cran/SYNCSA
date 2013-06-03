@@ -11,7 +11,8 @@ Function obtains the correlation between two matrices, similar to the function m
 }
 
 \usage{
-cor.matrix(m1, m2, x, y, method = "pearson", dist = "euclidean", permutations = 999, norm = FALSE, na.rm = FALSE)
+cor.matrix(m1, m2, x, y, method = "pearson", dist = "euclidean",
+		permutations = 999, norm = FALSE, na.rm = FALSE)
 }
 
 \arguments{

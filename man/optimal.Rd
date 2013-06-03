@@ -11,7 +11,9 @@ Maximize trait-convergence assembly patterns (TCAP = roTE), trait-divergence ass
 }
 
 \usage{
-optimal(comm, envir, traits, subset.min = 2, subset.max = 3, pattern = "tcap" , dist = "euclidean", method = "pearson", scale = TRUE, scale.envir = TRUE, na.rm = FALSE, notification = TRUE)
+optimal(comm, envir, traits, subset.min = 2, subset.max = 3, pattern = "tcap" , 
+		dist = "euclidean", method = "pearson", scale = TRUE, scale.envir = TRUE,
+		na.rm = FALSE, notification = TRUE)
 }
 
 \arguments{
@@ -54,7 +56,8 @@ Vanderlei Júlio Debastiani <vanderleidebastiani@yahoo.com.br>
 data(flona)
 optimal(flona$community,flona$environment,flona$traits,subset.min=3,subset.max=5,pattern="tcap")
 optimal(flona$community,flona$environment,flona$traits,subset.min=3,subset.max=5,pattern="tdap")
-optimal(flona$community,flona$environment,flona$traits,subset.min=3,subset.max=5,pattern="tcap.tdap")
+optimal(flona$community,flona$environment,flona$traits,
+	subset.min=3,subset.max=5,pattern="tcap.tdap")
 }
 
 \keyword{SYNCSA}

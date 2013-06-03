@@ -21,16 +21,24 @@ matrix.x<-function (comm, traits, scale = TRUE, notification = TRUE)
     
     if (scale == "TRUE") {
         dist.traits <- vegdist(traits, method = "gower", diag = TRUE, upper = TRUE,na.rm=TRUE)
-        similar.traits <- 1 - as.matrix(dist.traits/max(dist.traits))
-        matrix.traits <- 1/colSums(similar.traits)
+        similar.traits <- 1 - as.matrix(dist.traits)
+        matrix.traits <- 1/colSums(similar.traits,na.rm=TRUE)
         matrix.u <- sweep(similar.traits, 1, matrix.traits, "*")
     }
     else{
     	dist.traits <- as.matrix(vegdist(traits, method = "euclidean", diag = TRUE, upper = TRUE,na.rm =TRUE))
-	    similar.traits <- 1 - (dist.traits/max(dist.traits))
-    	matrix.traits <- 1/colSums(similar.traits)
+	    similar.traits <- 1 - (dist.traits/max(dist.traits,na.rm=TRUE))
+    	matrix.traits <- 1/colSums(similar.traits,na.rm=TRUE)
 	    matrix.u <- sweep(similar.traits, 1, matrix.traits, "*")
     }
+	u.NA <- apply(matrix.u, 2, is.na)
+    if (notification == TRUE) {
+        if (length(which(unique(as.vector(u.NA)) == TRUE)) > 
+            0) {
+            warning("Warning: NA in matrix U", call. = FALSE)
+        }
+    }
+    matrix.u[u.NA] <- 0 
     matrix.X <- matrix.w %*% matrix.u
     return(list(matrix.w = matrix.w, matrix.u = matrix.u, matrix.X = matrix.X))
 }
