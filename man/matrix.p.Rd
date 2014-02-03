@@ -20,7 +20,7 @@ matrix.p(comm, dist.spp, notification = TRUE)
 
 \value{
 \item{matrix.w}{Standardized community matrix, where rows are communities and columns species. Row totals (communities) = 1.}
-\item{matrix.q}{Standardized matrix containing de degree of belonging of species in relation to each other. Row totals (species) = 1.}
+\item{matrix.q}{Standardized matrix containing the degree of belonging of species in relation to each other. Row totals (species) = 1.}
 \item{matrix.P}{Phylogeny-weighted species composition matrix. Row totals (communities) = 1.}
 }
 

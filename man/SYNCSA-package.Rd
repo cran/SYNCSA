@@ -13,8 +13,8 @@ Analysis of metacommunities based on functional traits and phylogeny of the comm
 \tabular{ll}{
 Package: \tab SYNCSA\cr
 Type: \tab Package\cr
-Version: \tab 1.3\cr
-Date: \tab Feb 13, 2013\cr
+Version: \tab 1.3.2\cr
+Date: \tab Dec 12, 2013\cr
 Publication: \tab April 05, 2011 (Version 1.0)\cr
 License: \tab GPL-2\cr
 }

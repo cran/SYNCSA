@@ -1,4 +1,4 @@
-optimal<-function (comm, envir, traits, subset.min = 2, subset.max = 3, pattern = "tcap", dist = "euclidean", method = "pearson", scale = TRUE, scale.envir = TRUE , na.rm = FALSE, notification = TRUE) 
+optimal<-function (comm, envir, traits, subset.min = 2, subset.max = 3, pattern = "tcap", dist = "euclidean", method = "pearson", scale = TRUE, scale.envir = TRUE , na.rm = FALSE, notification = TRUE, progressbar=FALSE) 
 {
     part.cor <- function(rxy, rxz, ryz) {
         (rxy - rxz * ryz)/sqrt(1 - rxz * rxz)/sqrt(1 - ryz * ryz)
@@ -39,6 +39,7 @@ optimal<-function (comm, envir, traits, subset.min = 2, subset.max = 3, pattern 
     }
     p <- 1:subset.max
     bin <- factorial(m)/(factorial(p) * factorial(m - p))
+    nT<-sum(bin[subset.min:subset.max])
     comb <- matrix(NA, nrow = sum(bin[subset.min:subset.max]), ncol = 1)
     n=0
     for (i in subset.min:subset.max) {
@@ -57,6 +58,9 @@ optimal<-function (comm, envir, traits, subset.min = 2, subset.max = 3, pattern 
             	n=n+1
                 T <- matrix.t(comm, as.matrix(traits[, combinations1[, j]]), scale = scale, notification = FALSE)
                 correlation[n, 1] <- cor(vegdist(as.matrix(T$matrix.T), method = dist, na.rm = na.rm), dist.y, method = method)
+                if(progressbar){
+					ProgressBAR(n,nT,style=3)
+				}
             }
             if (pattern == 2) {
             	n=n+1
@@ -77,11 +81,17 @@ optimal<-function (comm, envir, traits, subset.min = 2, subset.max = 3, pattern 
         	        	}
     	            }
                 }
+				if(progressbar){
+					ProgressBAR(n,nT,style=3)
+				}
             }
             if (pattern == 3) {
             	n=n+1
                 X <- matrix.x(comm, as.matrix(traits[, combinations1[, j]]), scale = scale, notification = FALSE)
                 correlation[n, 1] <- cor(vegdist(as.matrix(X$matrix.X), method = dist, na.rm = na.rm), dist.y, method = method)
+				if(progressbar){
+					ProgressBAR(n,nT,style=3)
+				}
             }
         }
     }

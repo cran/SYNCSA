@@ -95,7 +95,7 @@ Wilson, J.B. (2007). Trait-divergence assembly rules have been demonstrated: lim
 Vanderlei Júlio Debastiani <vanderleidebastiani@yahoo.com.br>
 }
 
-\seealso{ \code{\link{matrix.t}}, \code{\link{matrix.x}}, \code{\link{matrix.p}}, \code{\link{optimal}}, \code{\link{organize.syncsa}} 
+\seealso{ \code{\link{matrix.t}}, \code{\link{matrix.x}}, \code{\link{matrix.p}}, \code{\link{optimal}}, \code{\link{belonging}}, \code{\link{organize.syncsa}}, \code{\link{rao.diversity}} 
 }
 
 \examples{

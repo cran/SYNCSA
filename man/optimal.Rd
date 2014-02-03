@@ -13,7 +13,7 @@ Maximize trait-convergence assembly patterns (TCAP = roTE), trait-divergence ass
 \usage{
 optimal(comm, envir, traits, subset.min = 2, subset.max = 3, pattern = "tcap" , 
 		dist = "euclidean", method = "pearson", scale = TRUE, scale.envir = TRUE,
-		na.rm = FALSE, notification = TRUE)
+		na.rm = FALSE, notification = TRUE, progressbar = FALSE)
 }
 
 \arguments{
@@ -29,6 +29,7 @@ optimal(comm, envir, traits, subset.min = 2, subset.max = 3, pattern = "tcap" ,
 \item{scale.envir}{Logical argument (TRUE or FALSE) to specify if the environmental variables are measured on different scales (Default Scale = TRUE). If the enviromental variables are measured on different scales, the matrix is subjected to centralization and standardization within each variable.}
 \item{na.rm}{Logical argument (TRUE or FALSE) to specify if pairwise deletion of missing observations when computing dissimilarities (Default na.rm = FALSE).}
 \item{notification}{Logical argument (TRUE or FALSE) to specify if notifications of missing observations are shown (Default notification = TRUE).}
+\item{progressbar}{Logical argument (TRUE or FALSE) to specify if display a progress bar on the R console (Default progressbar = FALSE).}
 }
 
 \value{
