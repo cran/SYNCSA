@@ -4,10 +4,11 @@
 \docType{data}
 \title{Hypothetical data for SYNCSA}
 \usage{
-  data(flona)
+data(flona)
 }
 \description{Hypothetical data for running examples.}
 \format{
+  A list with 4 matrices.
   \describe{
     \item{commnunity}{Community data, observations of 59 species in 39 sites.}
     \item{traits}{Matrix data of species described by five traits.}
