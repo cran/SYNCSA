@@ -63,6 +63,10 @@
 #' @param newClusters Logical argument (TRUE or FALSE) to specify if make new parallel
 #' processes or use predefined socket cluster. Only if parallel is different of NULL (Default newClusters = TRUE).
 #' @param CL A predefined socket cluster done with parallel package.
+#' @param put.together List to specify group of traits. Each group specify receive the
+#' same weight that one trait outside any group, in the way each group is considered
+#' as unique trait (Default put.together = NULL). This argument must be a list, see
+#' examples in \code{\link{syncsa}}.
 #' @return \item{Obs}{Correlation between matrices.} \item{p}{Significance
 #' level based on permutations.}
 #' @author Vanderlei Julio Debastiani <vanderleidebastiani@@yahoo.com.br>
@@ -98,7 +102,7 @@ cor.matrix <- function (mx1, mx2, x, my1 = NULL, my2 = NULL, y, permute.my2 = FA
   dist.y <- vegan::vegdist(y, method = dist, na.rm = na.rm)
   dist.x <- vegan::vegdist(x, method = dist, na.rm = na.rm)
   correlation <- stats::cor(dist.x, dist.y, method = method)
-  N <- dim(mx2)[1]
+  N <- nrow(mx2)
   if(is.null(seqpermutation)){
     seqpermutation <- permut.vector(N, strata = strata, nset = permutations)
   }
@@ -106,13 +110,15 @@ cor.matrix <- function (mx1, mx2, x, my1 = NULL, my2 = NULL, y, permute.my2 = FA
     parallel <- length(CL)
   }
   ptest <- function(samp, mx1, mx2, my1, my2, dist.y, permute.my2, norm, norm.y, dist, na.rm, method){
-    x.permut <- mx1 %*% mx2[samp, ,drop=FALSE]
+    # x.permut <- mx1 %*% mx2[samp, ,drop=FALSE]
+    x.permut <- matmult.syncsa(mx1, mx2[samp, , drop = FALSE])
     if (norm) {
       matrix.permut <- apply(x.permut^2, 2, sum)
       x.permut <- sweep(x.permut, 2, sqrt(matrix.permut), "/")
     }
     if(permute.my2){
-      y.permut <- my1 %*% my2[samp, ,drop=FALSE]
+      # y.permut <- my1 %*% my2[samp, ,drop=FALSE]
+      y.permut <- matmult.syncsa(my1, my2[samp, , drop = FALSE])
       if (norm.y) {
         matrix.permut <- apply(y.permut^2, 2, sum)
         y.permut <- sweep(y.permut, 2, sqrt(matrix.permut), "/")
